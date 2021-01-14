@@ -1,57 +1,25 @@
-/*  for the understanding purpose follow the steps in this order.
+  /*  for the understanding purpose follow the steps in this order.
     1. Step 2 (understand the DOM structure using the example-preview.png )
     2. Step 3 (built the component)
     3. Step 1 (use the axios to get the request and make the scafolding ready)
     4. Step 4 (pass the data that was created in the component 
        set up with Step 3, do the querySelector, append it)
     5. Step 5 (buid and array and iterate over it.)
+  */
 
-  STEP 1: using axios, send a GET request to the following URL
+  /*  STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
-*/
-import axios from 'axios'; //importing the axios before step 1
+  */
 
-axios
-.get("https://api.github.com/users/ShahJalpa")
-.then((response) => {
-  const jalpaGitData = cardMaker(response.data);
-  const card = document.querySelector('.cards');
-  card.appendChild(jalpaGitData)
-  console.log(response.data);
-})
-.catch((error) => {
-  console.log("somethig wrong", error);
-})
-
-/*
-  STEP 2: Inspect and study the data coming back, this is YOUR
+  /*  STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
     data in order to use it to build your component function
 
     Skip to STEP 3.
-*/
+  */
 
-/*
-  STEP 4: Pass the data received from Github into your function,
-    and append the returned markup to the DOM as a child of .cards
-*/
-
-/*
-  STEP 5: Now that you have your own card getting added to the DOM, either
-    follow this link in your browser https://api.github.com/users/<Your github name>/followers,
-    manually find some other users' github handles, or use the list found at the
-    bottom of the page. Get at least 5 different Github usernames and add them as
-    Individual strings to the friendsArray below.
-
-    Using that array, iterate over it, requesting data for each user, creating a new card for each
-    user, and adding that card to the DOM.
-*/
-
-const followersArray = [];
-
-/*
-  STEP 3: Create a function that accepts a single object as its only argument.
+  /*    STEP 3: Create a function that accepts a single object as its only argument.
     Using DOM methods and properties, create and return the following markup:
 
     <div class="card">
@@ -68,50 +36,83 @@ const followersArray = [];
         <p>Bio: {users bio}</p>
       </div>
     </div>
-*/
-  function cardMaker(data){
-    const card = document.createElement('div');
-    const img = document.createElement('img');
-    const cardInfo = document.createElement('div');
-    const userName = document.createElement('h3');
-    const usersUserName = document.createElement('p');
-    const location = document.createElement('p');
-    const profile = document.createElement('p');
-    const profileHref = document.createElement('a');
-    const followers = document.createElement('p');
-    const following = document.createElement('p');
-    const bio = document.createElement('p');
+  */
 
-    //structure setup into HTML format shown above (parent-child setup)
-    card.appendChild(img);
-    card.appendChild(cardInfo);
-    card.appendChild(userName);
-    card.appendChild(usersUserName);
-    card.appendChild(location);
-    card.appendChild(profile);
-    profile.appendChild( profileHref);
-    card.appendChild(followers);
-    card.appendChild(following);
-    card.appendChild(bio);
-    //structure setup according to HTML class tag
-    card.classList.add('card');
-    card.classList.add('card-info');
+  /*  STEP 4: Pass the data received from Github into your function,
+    and append the returned markup to the DOM as a child of .cards
+  */
 
-    //text content set up
-    img.setAttribute('src',data.userImgUrl);
-    userName.textContent('Name: ${data.profileName}');
-    usersUserName.textContent('User Name: ${data.name}');
-    location.textContent('Location: ${data.location}');
-    profile.textContent('Profile: ');
-    profileHref.setAttribute('href', data.profileUrl);
-    followers.textContent('Follower: ${data.followers}');
-    following.textContent('Following: ${data.following}');
-    bio.textContent('Bio: ${data.bio}');
+  /*  STEP 5: Now that you have your own card getting added to the DOM, either
+    follow this link in your browser https://api.github.com/users/<Your github name>/followers,
+    manually find some other users' github handles, or use the list found at the
+    bottom of the page. Get at least 5 different Github usernames and add them as
+    Individual strings to the friendsArray below.
 
-    //return the card component
-    return card;
+    Using that array, iterate over it, requesting data for each user, creating a new card for each
+    user, and adding that card to the DOM.
+  */
+function cardMaker(data){
+  const card = document.createElement('div');
+  const img = document.createElement('img');
+  const cardInfo = document.createElement('div');
+  const userName = document.createElement('h3');
+  const usersUserName = document.createElement('p');
+  const location = document.createElement('p');
+  const profile = document.createElement('p');
+  const profileHref = document.createElement('a');
+  const followers = document.createElement('p');
+  const following = document.createElement('p');
+  const bio = document.createElement('p');
 
-  }
+  //structure setup into HTML format shown above (parent-child setup)
+  card.appendChild(img);
+  card.appendChild(cardInfo);
+  card.appendChild(userName);
+  card.appendChild(usersUserName);
+  card.appendChild(location);
+  card.appendChild(profile);
+  profile.appendChild( profileHref);
+  card.appendChild(followers);
+  card.appendChild(following);
+  card.appendChild(bio);
+  //structure setup according to HTML class tag
+  card.classList.add('card');
+  card.classList.add('card-info');
+
+  //text content set up
+  img.setAttribute('src',data.userImgUrl);
+  userName.textContent('Name: ${data.profileName}');
+  usersUserName.textContent('User Name: ${data.name}');
+  location.textContent('Location: ${data.location}');
+  profile.textContent('Profile: ');
+  profileHref.setAttribute('href', data.profileUrl);
+  followers.textContent('Follower: ${data.followers}');
+  following.textContent('Following: ${data.following}');
+  bio.textContent('Bio: ${data.bio}');
+
+  //return the card component
+  return card;
+
+}
+
+import axios from 'axios'; //importing the axios before step 1
+
+axios
+.get("https://api.github.com/users/ShahJalpa")
+.then((response) => {
+  const jalpaGitData = cardMaker(response.data);
+  const card = document.querySelector('.cards');
+  card.appendChild(jalpaGitData)
+  console.log(response.data);
+})
+.catch((error) => {
+  console.log("somethig wrong", error);
+})
+
+const followersArray = [];
+
+
+
 /*
   List of LS Instructors Github username's:
     tetondan
