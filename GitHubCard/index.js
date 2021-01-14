@@ -60,6 +60,7 @@ axios
 .get("https://api.github.com/users/ShahJalpa")
 .then((response) => {
   const jalpaGitData = cardMaker(response.data);
+  console.log(response.data);
   const card = document.querySelector('.cards');
   card.appendChild(jalpaGitData)
   console.log(response.data);
@@ -69,18 +70,19 @@ axios
 })
 
 
-const followersArray = ['https://github.com/rodhent', 'https://github.com/BrityHemming', 'https://github.com/emmac124', 'https://github.com/chrismjohnston', 'https://github.com/lisabpink'];
 
-followersArray.forEach(url =>{
+
+followersArray.forEach(follower =>{
   axios
-  .get(url)
+  .get(`https://api.github.com/users/${follower}`)
   .then((response) => {
     const arrayData = cardMaker(response.data);
-    const card = document.querySelector('.crads');
+    const card = document.querySelector('.cards');
+    console.log(arrayData);
     card.appendChild(arrayData);
   })
 })
-
+const followersArray = ['rodhent', 'BrityHemming', 'emmac124', 'chrismjohnston', 'lisabpink'];
 //<------------- Step 2 & 3 ------------>
 
 function cardMaker(data){
@@ -113,14 +115,14 @@ function cardMaker(data){
 
   //text content set up
   img.setAttribute('src',data.userImgUrl);
-  userName.textContent('Name: ${data.profileName}');
-  usersUserName.textContent('User Name: ${data.name}');
-  location.textContent('Location: ${data.location}');
-  profile.textContent('Profile: ');
+  userName.textContent = `Name: ${data.profileName}`;
+  usersUserName.textContent = `User Name: ${data.name}`;
+  location.textContent = `Location: ${data.location}`;
+  profile.textContent = `Profile: `;
   profileHref.setAttribute('href', data.profileUrl);
-  followers.textContent('Follower: ${data.followers}');
-  following.textContent('Following: ${data.following}');
-  bio.textContent('Bio: ${data.bio}');
+  followers.textContent = `Follower: ${data.followers}`;
+  following.textContent = `Following: ${data.following}`;
+  bio.textContent = `Bio: ${data.bio}`;
 
   //return the card component
   return card;
