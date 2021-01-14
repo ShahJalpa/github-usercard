@@ -51,6 +51,38 @@
     Using that array, iterate over it, requesting data for each user, creating a new card for each
     user, and adding that card to the DOM.
   */
+
+//<------------- Step 1 ------------>
+import axios from 'axios'; //importing the axios before step 1
+
+//<------------- Step 1 & 4 ------------>
+axios
+.get("https://api.github.com/users/ShahJalpa")
+.then((response) => {
+  const jalpaGitData = cardMaker(response.data);
+  const card = document.querySelector('.cards');
+  card.appendChild(jalpaGitData)
+  console.log(response.data);
+})
+.catch((error) => {
+  console.log("somethig wrong", error);
+})
+
+
+const followersArray = ['https://github.com/rodhent', 'https://github.com/BrityHemming', 'https://github.com/emmac124', 'https://github.com/chrismjohnston', 'https://github.com/lisabpink'];
+
+followersArray.forEach(url =>{
+  axios
+  .get(url)
+  .then((response) => {
+    const arrayData = cardMaker(response.data);
+    const card = document.querySelector('.crads');
+    card.appendChild(arrayData);
+  })
+})
+
+//<------------- Step 2 & 3 ------------>
+
 function cardMaker(data){
   const card = document.createElement('div');
   const img = document.createElement('img');
@@ -95,21 +127,12 @@ function cardMaker(data){
 
 }
 
-import axios from 'axios'; //importing the axios before step 1
 
-axios
-.get("https://api.github.com/users/ShahJalpa")
-.then((response) => {
-  const jalpaGitData = cardMaker(response.data);
-  const card = document.querySelector('.cards');
-  card.appendChild(jalpaGitData)
-  console.log(response.data);
-})
-.catch((error) => {
-  console.log("somethig wrong", error);
-})
 
-const followersArray = [];
+
+
+//<------------- Step 5 ------------>
+
 
 
 
