@@ -70,7 +70,7 @@ axios
 })
 
 
-
+const followersArray = ['rodhent', 'BrityHemming', 'emmac124', 'chrismjohnston', 'lisabpink'];
 
 followersArray.forEach(follower =>{
   axios
@@ -82,47 +82,77 @@ followersArray.forEach(follower =>{
     card.appendChild(arrayData);
   })
 })
-const followersArray = ['rodhent', 'BrityHemming', 'emmac124', 'chrismjohnston', 'lisabpink'];
+
 //<------------- Step 2 & 3 ------------>
 
 function cardMaker(data){
   const card = document.createElement('div');
   const img = document.createElement('img');
   const cardInfo = document.createElement('div');
-  const userName = document.createElement('h3');
-  const usersUserName = document.createElement('p');
+  const name = document.createElement('h3');
+  const login = document.createElement('p');
   const location = document.createElement('p');
   const profile = document.createElement('p');
-  const profileHref = document.createElement('a');
+  const profileLink = document.createElement('a');
   const followers = document.createElement('p');
   const following = document.createElement('p');
   const bio = document.createElement('p');
 
+  console.log(cardMaker);
+
+  /*    STEP 3: Create a function that accepts a single object as its only argument.
+    Using DOM methods and properties, create and return the following markup:
+
+    <div class="card">
+      <img src={image url of user} />
+      <div class="card-info">
+        <h3 class="name">{users name}</h3>
+        <p class="username">{users user name}</p>
+        <p>Location: {users location}</p>
+        <p>Profile:
+          <a href={address to users github page}>{address to users github page}</a>
+        </p>
+        <p>Followers: {users followers count}</p>
+        <p>Following: {users following count}</p>
+        <p>Bio: {users bio}</p>
+      </div>
+    </div>
+  */
+
   //structure setup into HTML format shown above (parent-child setup)
   card.appendChild(img);
   card.appendChild(cardInfo);
-  card.appendChild(userName);
-  card.appendChild(usersUserName);
-  card.appendChild(location);
-  card.appendChild(profile);
-  profile.appendChild( profileHref);
-  card.appendChild(followers);
-  card.appendChild(following);
-  card.appendChild(bio);
+  cardInfo.appendChild(name);
+  cardInfo.appendChild(login);
+  cardInfo.appendChild(location);
+  cardInfo.appendChild(profile);
+  //profile.appendChild(profileLink);
+  cardInfo.appendChild(followers);
+  cardInfo.appendChild(following);
+  cardInfo.appendChild(bio);
+
   //structure setup according to HTML class tag
   card.classList.add('card');
   card.classList.add('card-info');
+  name.classList.add('name');
+  login.classList.add('username');
 
   //text content set up
-  img.setAttribute('src',data.userImgUrl);
-  userName.textContent = `Name: ${data.profileName}`;
-  usersUserName.textContent = `User Name: ${data.name}`;
+  img.setAttribute('src', data.avatar_url);
+  name.textContent = data.name;
+  login.textContent = data.login;
   location.textContent = `Location: ${data.location}`;
   profile.textContent = `Profile: `;
-  profileHref.setAttribute('href', data.profileUrl);
+
+  profile.appendChild(profileLink);
+  profileLink.setAttribute('href', data.html_url);
+  profileLink.textContent = data.html_url;
+
   followers.textContent = `Follower: ${data.followers}`;
   following.textContent = `Following: ${data.following}`;
   bio.textContent = `Bio: ${data.bio}`;
+
+  console.log(data.userImgUrl);
 
   //return the card component
   return card;
